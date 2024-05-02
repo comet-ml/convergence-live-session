@@ -498,6 +498,8 @@ class DreamBoothTrainer:
                 variant=self.hyperparameters.variant,
             )
             pipeline.set_progress_bar_config(disable=True)
+            if self.hyperparameters.pretrained_model_name_or_path == 'stabilityai/stable-diffusion-xl-base-1.0':
+                pipeline.enable_model_cpu_offload()
 
             num_new_images = self.hyperparameters.num_class_images - cur_class_images
             logger.info(f"Number of class images to sample: {num_new_images}.")
