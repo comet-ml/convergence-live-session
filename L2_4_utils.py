@@ -75,34 +75,6 @@ def point_prompt(masks, points, point_label):  # numpy 处理
     onemask = onemask >= 1
     return onemask, 0
 
-"""
-def show_masks_on_image(image, masks):
-    # Create a mask image (assuming binary mask)
-    #image_with_mask = Image.open(image_path).convert("RGBA")
-    image_with_mask = image.convert("RGBA")
-
-    for mask in masks:
-        #mask = mask.cpu().numpy()
-
-        height, width = mask.shape
-        mask_array = np.zeros((height, width, 4), dtype=np.uint8)
-        color = [random.randint(0, 255), random.randint(0, 255), random.randint(0, 255), 150]
-
-        mask_array[mask, :] = color
-        mask_image = Image.fromarray(mask_array)
-
-        width, height = image_with_mask.size
-        mask_image = mask_image.resize((width, height))
-
-        # Overlay the mask on the image
-        image_with_mask = Image.alpha_composite(
-            image_with_mask,
-            mask_image)
-
-    # Display the result
-    image_with_mask.show()
-"""
-
 def show_box(box, ax):
     x0, y0 = box[0], box[1]
     w, h = box[2] - box[0], box[3] - box[1]
