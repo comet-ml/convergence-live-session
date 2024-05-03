@@ -293,8 +293,8 @@ def show_boxes_and_labels_on_image(raw_image, boxes, labels, scores):
     plt.axis("on")
     plt.show()
 
-"""
-def show_masks_on_image(raw_image, masks):
+
+def show_masks_on_image_gpu(raw_image, masks):
     # Create a mask image (assuming binary mask)
     image_with_mask = raw_image.convert("RGBA")
 
@@ -316,7 +316,7 @@ def show_masks_on_image(raw_image, masks):
 
     # Display the result
     return image_with_mask
-"""
+
 
 def show_multiple_masks_on_image(raw_image, masks, scores):
     fig, ax = plt.subplots(figsize=(10, 10))
