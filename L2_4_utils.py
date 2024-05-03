@@ -198,6 +198,7 @@ def show_points(coords, labels, ax, marker_size=375):
     ax.scatter(pos_points[:, 0], pos_points[:, 1], color='green', marker='*', s=marker_size, edgecolor='white', linewidth=1.25)
     ax.scatter(neg_points[:, 0], neg_points[:, 1], color='red', marker='*', s=marker_size, edgecolor='white', linewidth=1.25)
 
+"""
 def show_masks_on_image(image, masks):
     # Create a mask image (assuming binary mask)
     #image_with_mask = Image.open(image_path).convert("RGBA")
@@ -223,6 +224,7 @@ def show_masks_on_image(image, masks):
 
     # Display the result
     return image_with_mask
+"""
 
 def show_binary_mask(masks, scores):
     if len(masks.shape) == 4:
