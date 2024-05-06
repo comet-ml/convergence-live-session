@@ -569,15 +569,15 @@ class DreamBoothTrainer:
 
         text_encoder_cls = import_model_class_from_model_name_or_path(self.hyperparameters.pretrained_model_name_or_path, self.hyperparameters.revision)
         text_encoder = text_encoder_cls.from_pretrained(
-            self.hyperparameters.pretrained_model_name_or_path, subfolder="text_encoder", revision=self.hyperparameters.revision, variant=self.hyperparameters.variant, device_map="auto", dtype=weight_dtype
-        )
+            self.hyperparameters.pretrained_model_name_or_path, subfolder="text_encoder", revision=self.hyperparameters.revision, variant=self.hyperparameters.variant
+        ).to(self.accelerator.device, dtype=weight_dtype)
         vae = AutoencoderKL.from_pretrained(
-            self.hyperparameters.pretrained_model_name_or_path, subfolder="vae", revision=self.hyperparameters.revision, variant=self.hyperparameters.variant, device_map="auto", dtype=weight_dtype
-        )
+            self.hyperparameters.pretrained_model_name_or_path, subfolder="vae", revision=self.hyperparameters.revision, variant=self.hyperparameters.variant
+        ).to(self.accelerator.device, dtype=weight_dtype)
 
         unet = UNet2DConditionModel.from_pretrained(
-            self.hyperparameters.pretrained_model_name_or_path, subfolder="unet", revision=self.hyperparameters.revision, variant=self.hyperparameters.variant, device_map="auto", dtype=weight_dtype
-        )
+            self.hyperparameters.pretrained_model_name_or_path, subfolder="unet", revision=self.hyperparameters.revision, variant=self.hyperparameters.variant
+        ).to(self.accelerator.device, dtype=weight_dtype)
 
         # We only train the additional adapter LoRA layers
         vae.requires_grad_(False)
