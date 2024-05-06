@@ -498,9 +498,11 @@ class DreamBoothTrainer:
                 variant=self.hyperparameters.variant,
             )
             pipeline.set_progress_bar_config(disable=True)
-            #if self.hyperparameters.pretrained_model_name_or_path == 'stabilityai/stable-diffusion-xl-base-1.0':
-                #pipeline.enable_model_cpu_offload()
-
+            if self.hyperparameters.pretrained_model_name_or_path == 'stabilityai/stable-diffusion-xl-base-1.0':
+                pipeline.enable_model_cpu_offload()
+            else:
+                # We don't want to send to GPU if we're using enable_model_cpu_offload()
+                pipeline.to(self.accelerator.device)
                 
 
             num_new_images = self.hyperparameters.num_class_images - cur_class_images
@@ -510,7 +512,6 @@ class DreamBoothTrainer:
             sample_dataloader = torch.utils.data.DataLoader(sample_dataset, batch_size=self.hyperparameters.sample_batch_size)
 
             sample_dataloader = self.accelerator.prepare(sample_dataloader)
-            pipeline.to(self.accelerator.device)
 
             for example in tqdm(
                 sample_dataloader, desc="Generating class images", disable=not self.accelerator.is_local_main_process
